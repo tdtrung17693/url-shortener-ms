@@ -1,5 +1,7 @@
+import Url from '../models/Url'
+
 export default {
-  getShortUrl (id) {
+  getShortUrl (ref) {
     return id
   },
   getOriginalUrl (shortUrl) {

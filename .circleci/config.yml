@@ -46,12 +46,17 @@ jobs:
           root: .
           paths:
             - dist/backend.js
+            - Dockerfile
+            - package.json
+            - yarn.lock
   deploy:
     working_directory: ~/repo
     docker:
       - image: circleci/node:8.11.1
     steps:
-      - checkout
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ~/repo
       - setup_remote_docker
 
       - run:
