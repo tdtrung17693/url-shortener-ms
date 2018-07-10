@@ -1,5 +1,7 @@
 import { Router } from 'express'
 
+import UrlShortener from '../services/urlShortenerService'
+
 const router = Router()
 
 function constructMessage () {

@@ -2,19 +2,17 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+
 version: 2
 jobs:
   build:
+    working_directory: ~/repo
     docker:
-      # specify the version you desire here
       - image: circleci/node:7.10
-
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
 
     steps:
       - checkout
@@ -36,18 +34,31 @@ jobs:
       # run tests!
       - run:
           name: test
-          command: npm test
+          command: yarn test
       - store_test_results: # special step to save test results as as artifact
           path: test-results
+
+      - run:
+          name: build
+          command: yarn build
+
+      - persist_to_workspace:
+          root: ~/repo
+          path:
+            - dist
   deploy:
+    working_directory: ~/repo
     docker:
-      - image: buildpack-deps:trusty
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: Deploy Master to Heroku
+          name: Build and Deploy Docker image to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+            heroku container:push web --app=$HEROKU_APP_NAME
+            heroku container:release web --app=$HEROKU_APP_NAME
 
 workflows:
   version: 2
