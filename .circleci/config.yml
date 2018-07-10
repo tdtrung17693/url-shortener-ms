@@ -54,6 +54,12 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Install Heroku
+          command: |
+            apk update && apk add curl curl-dev bash
+            curl https://cli-assets.heroku.com/install.sh | sh
+
+      - run:
           name: Build and Deploy Docker image to Heroku
           command: |
             docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
