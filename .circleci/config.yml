@@ -49,15 +49,15 @@ jobs:
   deploy:
     working_directory: ~/repo
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: circleci/node:8.11.1
     steps:
       - checkout
       - setup_remote_docker
+
       - run:
           name: Install Heroku
           command: |
-            apk update && apk add curl curl-dev bash
-            curl https://cli-assets.heroku.com/install.sh | sh
+            sudo npm install -g heroku
 
       - run:
           name: Build and Deploy Docker image to Heroku
