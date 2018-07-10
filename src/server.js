@@ -2,7 +2,7 @@ import http from 'http'
 import Debugger from 'debug'
 
 import app from './appInstance'
-import { normalizePort, generateOnError, generateOnListening } from './utils'
+import { normalizePort, generateOnError, generateOnListening } from './common/utils'
 
 const server = http.createServer(app.expressApp)
 const port = normalizePort(process.env.PORT || '3000')
