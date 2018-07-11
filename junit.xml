@@ -1,0 +1,18 @@
+<testsuites name="jest tests" tests="6" failures="0" time="12.909">
+  <testsuite name="UrlShortener Service" errors="0" failures="0" skipped="0" timestamp="2018-07-11T13:08:54" time="11.705" tests="3">
+    <testcase classname="UrlShortener Service should reject if url is invalid" name="UrlShortener Service should reject if url is invalid" time="10.098">
+    </testcase>
+    <testcase classname="UrlShortener Service should return an encoded id of the original URL" name="UrlShortener Service should return an encoded id of the original URL" time="0.038">
+    </testcase>
+    <testcase classname="UrlShortener Service should return an original url from en encoded id" name="UrlShortener Service should return an original url from en encoded id" time="0.023">
+    </testcase>
+  </testsuite>
+  <testsuite name="/POST /api/shorturl/new" errors="0" failures="0" skipped="0" timestamp="2018-07-11T13:08:54" time="11.931" tests="3">
+    <testcase classname="/POST /api/shorturl/new should return a response that contains shortened URL" name="/POST /api/shorturl/new should return a response that contains shortened URL" time="0.086">
+    </testcase>
+    <testcase classname="/POST /api/shorturl/new should return a response that contains an error message when requested with an invalid URL" name="/POST /api/shorturl/new should return a response that contains an error message when requested with an invalid URL" time="10.098">
+    </testcase>
+    <testcase classname="/GET /api/shorturl/:encoded_id should redirect to the original URL if the encoded id exists" name="/GET /api/shorturl/:encoded_id should redirect to the original URL if the encoded id exists" time="0.025">
+    </testcase>
+  </testsuite>
+</testsuites>

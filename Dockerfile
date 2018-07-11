@@ -7,5 +7,6 @@ RUN cd /usr/src/app && yarn install
 
 WORKDIR /usr/src/app
 ENV NODE_ENV production
+RUN yarn build
 
 CMD [ "yarn", "start" ]

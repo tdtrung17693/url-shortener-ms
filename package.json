@@ -41,12 +41,18 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "jest": "^23.3.0",
+    "jest-junit": "^5.1.0",
     "supertest": "^3.1.0"
   },
   "jest": {
     "testMatch": [
       "**/test/**/*.js?(x)"
     ],
-    "setupFiles": ["<rootDir>/jest-set-up/index.js"]
+    "setupFiles": [
+      "<rootDir>/jest-set-up/index.js"
+    ],
+    "reporters": [
+      "jest-junit"
+    ]
   }
 }
