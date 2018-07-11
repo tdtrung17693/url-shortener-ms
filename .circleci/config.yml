@@ -74,7 +74,7 @@ jobs:
             docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              heroku container:push web --app="url-shotener-ms-staging"
+              heroku container:push web --app="url-shortener-ms-staging"
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               heroku container:push web --app="tdt-url-shotener-ms"
             fi
