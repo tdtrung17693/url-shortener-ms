@@ -33,10 +33,14 @@ jobs:
 
       # run tests!
       - run:
-          name: test
-          command: yarn test
-      - store_test_results: # special step to save test results as as artifact
-          path: test-results
+          name: "Test Suite"
+          command: yarn jest --ci
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts: # special step to save test results as as artifact
+          path: reports/junit
 
       - run:
           name: build
