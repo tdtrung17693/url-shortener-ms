@@ -1,0 +1,80 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:7.10
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: circleci/mongo:3.6.5
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run:
+          name: test
+          command: yarn test
+      - store_test_results: # special step to save test results as as artifact
+          path: test-results
+
+      - run:
+          name: build
+          command: yarn build
+
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.11.1
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - run:
+          name: Install Heroku
+          command: |
+            sudo npm install -g heroku
+
+      - run:
+          name: Build and Deploy Docker image to Heroku
+          command: |
+            ./scripts/deploy.sh
+
+workflows:
+  version: 2
+  build-deploy-staging:
+    jobs:
+      - build
+      - hold:
+          type: approval
+          requires:
+            - build
+      - deploy:
+          context: heroku-fcc
+          requires:
+            - hold
+          filters:
+            branches:
+              only:
+                - master
+                - staging
