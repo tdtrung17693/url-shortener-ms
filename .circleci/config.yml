@@ -75,8 +75,10 @@ jobs:
 
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
               heroku container:push web --app="url-shortener-ms-staging"
+              heroku container:release web --app="url-shortener-ms-staging"
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               heroku container:push web --app="tdt-url-shotener-ms"
+              heroku container:release web --app="tdt-url-shotener-ms"
             fi
               echo ""
 

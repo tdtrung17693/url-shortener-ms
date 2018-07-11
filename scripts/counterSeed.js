@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import database from '../config/database'
 import Counter from '../src/models/Counter'
 
-mongoose.connect(database.connection, { useNewUrlParser: true })
+mongoose.connect(database.connection)
 
 const counter = Counter({
   name: 'url_count',
