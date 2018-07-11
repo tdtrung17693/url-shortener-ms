@@ -11,7 +11,7 @@
     "start:dev": "",
     "start": "yarn build & node ./dist/backend.js",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll --verbose",
     "seed": "node ./scripts/counterSeed"
   },
   "dependencies": {

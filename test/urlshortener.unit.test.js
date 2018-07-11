@@ -1,4 +1,4 @@
-/* global describe, it, expect */
+/* global describe, it, expect, beforeAll, afterAll */
 import UrlService from '../src/services/urlShortenerService'
 import mongoose from 'mongoose'
 import database from '../config/database'
@@ -8,7 +8,7 @@ let counter
 
 describe('UrlShortener Service', () => {
   beforeAll(async () => {
-    await mongoose.connect(database.connection)
+    await mongoose.connect(database.connection, { useNewUrlParser: true })
     counter = Counter({
       name: 'url_count',
       seq: 0

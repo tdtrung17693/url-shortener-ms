@@ -6,8 +6,6 @@ import app from './appInstance'
 import database from '../config/database'
 import { normalizePort, generateOnError, generateOnListening } from './common/utils'
 
-mongoose.connect(database.connection)
-
 const server = http.createServer(app.expressApp)
 const port = normalizePort(process.env.PORT || '3000')
 const debug = Debugger('request-header-parser-microservice:server')

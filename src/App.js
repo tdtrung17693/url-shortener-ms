@@ -24,7 +24,7 @@ class App {
     this._app.use('/api', apiRouter)
 
     this._app.use('/', (req, res) => {
-      res.send('Hallo!')
+      res.send('Hallo da draussen!')
     })
   }
 
