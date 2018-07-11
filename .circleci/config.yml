@@ -69,15 +69,24 @@ jobs:
             sudo npm install -g heroku
 
       - run:
+          name: build
+          command: yarn build
+
+      - run:
           name: Build and Deploy Docker image to Heroku
           command: |
             docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-            heroku container:push web --app=$HEROKU_APP_NAME
-            heroku container:release web --app=$HEROKU_APP_NAME
+
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              heroku container:push web --app="url-shotener-ms-staging"
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              heroku container:push web --app="tdt-url-shotener-ms"
+            fi
+              echo ""
 
 workflows:
   version: 2
-  build-deploy:
+  build-deploy-staging:
     jobs:
       - build
       - hold:
@@ -90,4 +99,6 @@ workflows:
             - hold
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - staging
